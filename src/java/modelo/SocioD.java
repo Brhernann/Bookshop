@@ -15,18 +15,25 @@ public class SocioD {
     private EntityManager em;
 
     @Transactional(rollbackFor = {ServicioException.class})
-
-    public void Actualizar(Socios so) throws ServicioException {
+    public void ActualizarSocios(Socios so) throws ServicioException {
 
         em.merge(so);
     }
-
-    public void Borrar(Socios so) throws ServicioException {
+    @Transactional
+    public void BorrarSocios(Socios so) throws ServicioException {
 
         em.remove(so);
     }
+    @Transactional
+    public int CrearSocio(Socios so) throws SecurityException {
 
-    public boolean VerificarJPQL(String rut) throws SecurityException {
+       
+            em.persist(so);
+            return 1;
+        
+    }
+    @Transactional
+    public boolean VerificarSocio(String rut) throws SecurityException {
 
         String sql = "Select s from Socios s Where s.rut = :rut";
 
@@ -40,25 +47,17 @@ public class SocioD {
         }
     }
 
-    public int CrearJPQL(Socios so) throws SecurityException {
-
-        if (VerificarJPQL(so.getRut())) {
-            return 0; //existe
-        } else {
-            em.persist(so);
-            return 1;
-        }
-    }
-
-    public List<Socios> BuscarTodosJPQL() throws SecurityException {
+    
+    @Transactional
+    public List<Socios> BuscarTodosSocios() throws SecurityException {
 
         String sql = "Select s from Socios s";
 
         Query q = em.createQuery(sql);
         return q.getResultList();
     }
-
-    public Socios BuscarJPQL(String rut) throws SecurityException {
+    @Transactional
+    public Socios BuscarSocios(String rut) throws SecurityException {
 
         String sql = "Select s from Socios s Where s.rut = :rut";
 

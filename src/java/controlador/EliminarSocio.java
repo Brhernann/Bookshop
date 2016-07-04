@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/CrearLibro.htm")
-public class Crearlibro {
+@RequestMapping("/EliminarSocio.htm")
+public class EliminarSocio {
 
     @Autowired
     private LibroD crud;
@@ -45,7 +45,7 @@ public class Crearlibro {
             }
             if (verificacion ==0) {
                 if (crud.BuscarJPQL(Nisbn) == null)
-                crud.create(new Libro(Nisbn, nombre, autor, Nstock));                
+                crud.CrearJPQL(new Libro(Nisbn, nombre, autor, Nstock));                
                 String registrado = "Ha registrado Correctamente el libro!";
                 m.addAttribute("exitoso", registrado);
                 return "Exito";

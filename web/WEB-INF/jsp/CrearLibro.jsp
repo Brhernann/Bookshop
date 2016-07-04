@@ -201,7 +201,7 @@
                       <div class="col-lg-6">
 
 
-                          <form action="libreria.htm" method="POST" class="form-group">
+                          <form action="CrearLibro.htm" method="POST" class="form-group">
 
                          <input name="txtisbn" type="text" class="form-control" required autocomplete placeholder="Isbn">
                          <input name="txtnombrelibro" type="text" class="form-control" required autocomplete placeholder="Nombre Libro">

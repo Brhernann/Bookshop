@@ -14,27 +14,29 @@ public class LibroD {
 
     @PersistenceContext
     private EntityManager em;
-
-    @Transactional(rollbackFor = {ServicioException.class})
-    public void Actualizar(Libro li) throws ServicioException {
-
-        em.merge(li);
-    }
-
+    //--------------------------------------------
     @Transactional
-    public void Borrar(Libro li) throws ServicioException {
+    public void crearLibro(Libro li) throws ServicioException{
+
+        em.persist(li);
+        
+    }
+    //-------------------------------------------------------
+    @Transactional
+    public void BorrarLibro(Libro li) throws ServicioException {
 
         em.remove(li);
     }
-    
-    @Transactional
-    public void create(Libro li) throws ServicioException{
+    //----------------------------------------------------
 
-        em.persist(li);
+    @Transactional(rollbackFor = {ServicioException.class})
+    public void ActualizarLibro(Libro li) throws ServicioException {
+
+        em.merge(li);
     }
-
+    //----------------------------------------------------------
     @Transactional
-    public boolean VerificarJPQL(int isbn) throws SecurityException {
+    public boolean VerificarLibro(int isbn) throws SecurityException {
 
         String sql = "Select l from Libro l Where l.isbn = :isbn";
 
@@ -47,13 +49,8 @@ public class LibroD {
             return false;
         }
     }
-    @Transactional
-    public int CrearJPQL(Libro li) throws SecurityException {
-
-        em.persist(li);
-        return 1;
-
-    }
+    //-------------------------------------------------------
+     
 
     @Transactional
     public List<Libro> BuscarTodosJPQL() throws SecurityException {
@@ -63,7 +60,7 @@ public class LibroD {
         Query q = em.createQuery(sql);
         return q.getResultList();
     }
-    
+    //-----------------------------------------------------------
     @Transactional
     public Libro BuscarJPQL(int isbn) throws SecurityException{
         
